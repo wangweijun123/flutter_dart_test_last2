@@ -47,6 +47,48 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^4.0.0
 
+  english_words: ^4.0.0
+  provider: ^6.0.0
+  http: ^1.1.0
+  align_positioned: ^3.0.0
+  shared_preferences: ^2.2.1
+  #  fijkplayer: 0.11.0
+  dio: ^5.3.2
+  path_provider: ^2.1.0
+
+  # 图片资源文件(font, colors, asserts)生成插件,下面两个是一起的
+  flutter_gen_runner: ^5.3.1
+  build_runner: ^2.4.6
+
+  # 图片选择插件(machao)
+  image_picker: ^0.8.5+3
+  #
+  get: ^4.6.5
+  camera: ^0.10.5+4
+
+  # 引入本地flutter插件
+#    player:
+#      path: player
+
+  # 因为中国网络问题，没法下载
+  #  player:
+  #    git:
+  #      url: https://github.com/hust-MC/flutter_player.git
+  #      ref: master
+
+  json_serializable: ^6.7.1
+  json_annotation: ^4.8.1
+
+  easy_refresh: ^3.3.2+1
+
+  font_awesome_flutter: ^10.5.0
+
+  geolocator: ^10.0.1
+  #  flutter_spinkit: ^3.1.0
+  event_bus: ^2.0.0
+  sqflite: ^2.3.0
+
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -58,6 +100,16 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  assets:
+    - asset/image/
+    - asset/video/video1.mp4
+    - asset/video/video2.mp4
+    - images/
+
+  fonts:
+    - family: Spartan MB
+      fonts:
+        - asset: fonts/SpartanMB-Black.otf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
