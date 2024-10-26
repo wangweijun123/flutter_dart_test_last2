@@ -1,6 +1,5 @@
 import 'dart:math';
 
-
 const double xOrigin = 0;
 const double yOrigin = 0;
 
@@ -132,7 +131,6 @@ class Television {
 }
 
 class SmartTelevision extends Television {
-
   @override
   // 注意是 num, 父类型
   set contrast(num value) {
@@ -143,7 +141,6 @@ class SmartTelevision extends Television {
 void testSmartTelevision() {
   SmartTelevision().contrast = 100;
 }
-
 
 /* 不能声明任何生成构造函数 */
 mixin Musical {
@@ -176,9 +173,11 @@ void testMusician() {
   Maestro().entertainMe();
 }
 
+// red 在内存中只有一份
 enum Color { red, green, blue }
 
 void testColor() {
+  //
   const favoriteColor = Color.blue;
   if (favoriteColor == Color.blue) {
     print('Your favorite color is blue!');
@@ -203,6 +202,7 @@ void testColor() {
 
   print(Vehicle.car.carbonFootprint);
 }
+
 enum Vehicle implements Comparable<Vehicle> {
   car(tires: 4, passengers: 5, carbonPerKilometer: 400),
   bus(tires: 6, passengers: 50, carbonPerKilometer: 800),
@@ -226,8 +226,7 @@ enum Vehicle implements Comparable<Vehicle> {
   int compareTo(Vehicle other) => carbonFootprint - other.carbonFootprint;
 }
 
-
-// 扩展方法 (接收器String)
+// 扩展方法 (接收器String) on 对 class 扩展方法
 extension NumberParsing on String {
   int parseInt() {
     print("parseInt 是一个对类String扩展函数");
@@ -279,13 +278,17 @@ void testCall() {
   var wf = WannabeFunction();
   var out = wf('Hi', 'there,', 'gang');
   print(out);
+
+  var xx = {}; // Map<dynamic, dynamic>
+  var xx1 = <String, String>{}; //  Map<String, String>
+  var xx2 = <int>{}; //  Set<int>
 }
 
 void main() {
-  testCall();
+  // testCall();
 
   // testExt();
-  // testColor();
+  testColor();
 
   // testMusician();
 

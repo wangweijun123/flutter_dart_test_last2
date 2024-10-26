@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dart_test_last/log_util.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+import 'dart02.dart';
+
 void testInt() {
   int a = 4;
   print(a);
@@ -1527,6 +1529,9 @@ void testJsonDecode() {
 void parseDataTime() {
   var date = DateTime.parse('1969-07-20 20:18:04Z');
   print(date.toString());
+
+  // 使用到了第二个文件 dart02.dart 中的扩展类(基于on String)
+  'xxxx'.parseDouble();
 }
 
 class MyBean2 {
