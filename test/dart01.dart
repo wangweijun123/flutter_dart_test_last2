@@ -16,7 +16,7 @@ void testInt() {
   assert(one == 1);
 
 // String -> double
-  var onePointOne = double.parse('1.1');
+  double onePointOne = double.parse('1.1');
   assert(onePointOne == 1.1);
 
 // int -> String
@@ -49,13 +49,14 @@ multi-line string.""";
 
   // These work in a const string.
   const aConstNum = 0;
-  // aConstNum = 2 常量不能再次赋值
+  // aConstNum = 2; // 常量不能再次赋值
 
   const aConstBool = true;
   const aConstString = 'a constant string';
 
 // These do NOT work in a const string.
   var aNum = 0;
+  // var 智能推断
   var aBool = true;
   var aString = 'a string';
   const aConstList = [1, 2, 3];
@@ -111,13 +112,15 @@ void testCollection() {
   // 手动指定类型
   final aListOfInts = <int>[];
   final aSetOfInts = <int>{};
+  Set<int> set = {};
   final aMapOfIntToDouble = <int, double>{};
 
   // 在使用子类型的内容初始化列表，但仍希望列表为 List <BaseType> 时，指定其类型很方便：
 
   // final aListOfBaseType = <BaseType>[SubType(), SubType()];
 
-  final anEmptyListOfDouble = <double>[];
+  final anEmptyListOfDouble = <double>[0];
+
   final anEmptySetOfString = <String>{};
   final anEmptyMapOfDoublesToInts = <double, int>{}; // Map<double, int>
 }
@@ -204,6 +207,19 @@ void testShoppingCart() {
   print(shoppingCart.total);
 }
 
+void tryCatchEx() {
+  try {
+    int result = 10 ~/ 0; // 故意引发一个整数除以零的异常
+    print('Result: $result');
+  } on UnsupportedError {
+    print('Cannot divide by zero!');
+  } catch (e) {
+    print('An error occurred: $e');
+  } finally {
+    print('Execution completed.');
+  }
+}
+
 // [] 可选
 int sumUpToFive(int a, [int? b, int? c, int? d, int? e]) {
   int sum = a;
@@ -216,6 +232,7 @@ int sumUpToFive(int a, [int? b, int? c, int? d, int? e]) {
 
 void testOptionalParams() {
   int total = sumUpToFive(1, 2);
+  // sumUpToFive(1, 3);
   int otherTotal = sumUpToFive(1, 2, 3, 4, 5);
   print("total = $total, otherTotal = $otherTotal");
 }
@@ -245,6 +262,7 @@ int sumUp(int a, int? b) {
 }
 
 // 这样才是可选参数
+// 在函数中, []=位置 {}=命名 都是可选参数
 int sumUp2(int a, [int? b, int? c]) {
   int temp = a;
   if (b != null) {
@@ -373,7 +391,7 @@ class MyColor2 {
   int red;
   int green;
   int blue;
-  // {} 表示 命名参数, required 不能为空
+  // {} 表示 可选命名参数, required 不能为空，就是说必须传
   MyColor2({required this.red, required this.green, required this.blue});
 }
 
@@ -508,6 +526,11 @@ class Color {
   Color.black() : this(0, 0, 0);
 }
 
+void testColorClass() {
+  Color c = Color(1, 2, 2);
+  var color = Color.black();
+}
+
 // Const 构造方法
 class ImmutablePoint {
   static const ImmutablePoint origin = ImmutablePoint(0, 0);
@@ -541,6 +564,7 @@ void testIterable() {
   int value1 = iterable2.elementAt(1);
   print("index 0 = $value0}, index 1 = $value1");
 
+  List<String> xx = ['Salad', 'Popcorn', 'Toast'];
   const iterable3 = ['Salad', 'Popcorn', 'Toast'];
   for (final item in iterable3) {
     print(item);
@@ -570,7 +594,6 @@ void testFirstWhere() {
     return item.length > 5;
   });
   print(foundItem2);
-
   // Or even pass in a function reference:
   var foundItem3 = items.firstWhere(predicate);
   print(foundItem3);
@@ -907,6 +930,7 @@ class Spacecraft {
     // Initialization code goes here.
   }
 
+  // 命名构造
   // Named constructor that forwards to the default one.
   Spacecraft.unlaunched(String name) : this(name, null);
 
@@ -1030,6 +1054,18 @@ void testType() {
   print("set = $set");
 }
 
+void testDynamicObject() {
+  Object obj = 'Hello'; // obj 是一个 Object 类型的变量，它可以存储任何 Dart 对象。
+  obj.toString(); // 可以调用 Object 类中定义的方法。
+// obj.substring(0, 2); // 编译错误，因为 Object 类中没有定义 substring() 方法。
+
+  // dynamic dyn = 'World'; // dyn 是一个 dynamic 类型的变量，它可以存储任何值。
+  dynamic dyn = 1; // dyn 是一个 dynamic 类型的变量，它可以存储任何值。
+  dyn.toString(); // 可以调用任何方法，即使该方法在运行时可能不存在。
+  dyn.substring(0, 2); // 不会报错，但在运行时可能会导致错误，如果 dyn 不是字符串类型。
+  print('xxxxx');
+}
+
 // 虽然final对象无法修改，但其字段可以更改。相比之下，const对象及其字段无法更改：它们是不可变的。
 
 class MyBean {
@@ -1124,7 +1160,7 @@ void yufa() {
   print(record.b); // Prints true
   print(record.$2); // Prints 'last'
 
-  var elements = <String>{};
+  var elements = <String>{}; // set
   elements.add('fluorine');
   elements.add('halogens');
 
@@ -1138,11 +1174,12 @@ void yufa() {
   nobleGases[10] = 'neon';
   nobleGases[18] = 'argon';
 
-  var gifts2 = {'first': 'partridge'};
+  var gifts2 = {'first': 'partridge'}; // map
   gifts2['fourth'] = 'calling birds'; // Add a key-value pair
 
   var list = [1, 2, 3];
-  var list2 = [0, ...list];
+  // ... 展开运算符
+  var list2 = [0, ...list]; // List<int> list2
   assert(list2.length == 4);
 }
 
@@ -1170,6 +1207,7 @@ void testtypeDef() {
 
 void testTypeSystem() {
   var arguments = {'argA': 'hello', 'argB': 42}; // Map<String, Object>
+  // dynamic 不静态检查(最好不用), Object 静态检查
   Map<String, dynamic> arguments2 = {'argA': 'hello', 'argB': 42};
 }
 
@@ -1323,6 +1361,7 @@ void testSwitchCase2() {
   switch (command) {
     case 'CLOSED':
       print("executeClosed");
+      break;
     case 'PENDING':
       print("executePending");
     case 'APPROVED':
@@ -1338,7 +1377,7 @@ void testSwitchCase2() {
 
 void testSwitchCase3() {
   var command = 'CLOSED';
-  // 与kotlin一样，有表达式
+  // 与kotlin一样，有表达式(返回值)
   var token = switch (command) {
     'CLOSED' => "executeClosed",
     _ => throw FormatException('Invalid')
@@ -1515,7 +1554,10 @@ void testMyBean2() {
 }
 
 void main() {
-  testMyBean2();
+  var m = multiReturn();
+  print(m.$1);
+  // testDynamicObject();
+  // testMyBean2();
 
   // parseDataTime();
 
