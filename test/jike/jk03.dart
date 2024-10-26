@@ -5,7 +5,8 @@ Future<String> fetchContent() =>
 //异步函数会同步等待Hello 2019的返回，并打印
 func() async => print(await fetchContent());
 
-// 最终输出的顺序其实是“func before”“func after”“Hello 2019, 这是命令行，所以程序退出了,没有打印 Hello 2019
+// 最终输出的顺序其实是“func before”“func after”“Hello 2019,
+// 这是命令行，所以程序退出了,没有打印 Hello 2019
 main() {
   print("func before");
   func();
