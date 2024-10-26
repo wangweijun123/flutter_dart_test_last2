@@ -111,6 +111,12 @@ class HomePage extends StatelessWidget {
               onPressed: () {
                 testDelay();
               }),
+          ElevatedButton(
+              // 不是叠加
+              child: const Text("catch 异步函数抛出的异常"),
+              onPressed: () {
+                testDelayException();
+              }),
         ]),
         floatingActionButton: FloatingActionButton(
             child: Icon(Icons.add), onPressed: c.increment));
@@ -120,6 +126,16 @@ class HomePage extends StatelessWidget {
     myPrint('click button ...');
     delayExcute(3);
     delayExcute(2);
+  }
+
+  void testDelayException() {
+    myPrint('click Exception button ...');
+    throwExceptionAsync(1).then((val) {
+      // then 来获取结果(包括异常结果)
+      myPrint('val = $val');
+    }, onError: (ex) {
+      myPrint('onError: $ex');
+    });
   }
 
   // 模拟耗时任务，多个任务是在线程池执行，而调用端只是获取结果而已，不用担心线程的问题了，简单多了
@@ -132,5 +148,18 @@ class HomePage extends StatelessWidget {
       () => 'time = $num',
     );
     myPrint('Your order is: $order');
+  }
+
+  Future<dynamic> throwExceptionAsync(int num) async {
+    // await 是阻塞当前函数，不阻塞调用栈上层
+    var order = await Future.delayed(
+      Duration(seconds: num),
+      () {
+        throw Exception("this is error msg");
+        return 'time = $num';
+      },
+    );
+    myPrint('Your order is: $order');
+    return order;
   }
 }

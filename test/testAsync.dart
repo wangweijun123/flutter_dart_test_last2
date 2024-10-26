@@ -1,4 +1,7 @@
 // async 声明异步函数, await 在函数内部使用
+// 使用async声明的函数返回future包装对象
+// async await 搭配才起作用
+// 耗时函数 使用
 Future<String> createOrderMessage() async {
   // wait 表达式使执行暂停
   var order = await fetchUserOrder();
