@@ -150,7 +150,10 @@ class _FirstRouteState extends State<FirstRoute> with TickerProviderStateMixin {
         // SingleChildScrollView 相当于android ScrollView 垂直
         child: Column(children: [
           Container(
-              width: 150, height: 30, child: Text(Strings.welcomeMessage)),
+              width: double.infinity,
+              height: 30,
+              alignment: Alignment.centerRight,
+              child: Text(Strings.welcomeMessage)),
           //
 
           ElevatedButton(
@@ -673,7 +676,7 @@ class _FirstRouteState extends State<FirstRoute> with TickerProviderStateMixin {
           CustomButton("我是自动以button"),
 
           ElevatedButton(
-            child: const Text('使用Isolate (执行更多的 CPU 密集型操作)'),
+            child: const Text('使用Isolate (执行更多的 CPU 密集型操作xxx)'),
             onPressed: () {
               Navigator.push(
                 context,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dart_test_last/log_util.dart';
 import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
@@ -105,6 +106,30 @@ class _JIkeNetworkState extends State<JIkeNetwork> {
     } catch (e) {
       print('Error:$e');
     }
+  }
+
+  dioParallDemo2() async {
+    var start = DateTime.now().second;
+    var allResult = await Future.wait([haoShi1(), haoShi2()]);
+    myPrint(
+        'return spend time=${DateTime.now().second - start}, allResult [0]=${allResult[0]}, [1]=${allResult[1]}');
+  }
+
+  Future<String> haoShi1() {
+    var re1 = Future.delayed(const Duration(seconds: 2), () {
+      myPrint('return result 1');
+      return 'result 1';
+    });
+
+    return re1;
+  }
+
+  Future<String> haoShi2() {
+    var re2 = Future.delayed(const Duration(seconds: 3), () {
+      myPrint('return result 2');
+      return 'result 2';
+    });
+    return re2;
   }
 
   dioInterceptorReject() async {
@@ -251,6 +276,10 @@ class _JIkeNetworkState extends State<JIkeNetwork> {
             TextButton(
               child: Text('Dio 并发demo'),
               onPressed: () => dioParallDemo(),
+            ),
+            TextButton(
+              child: Text('Dio 并发demo 2'),
+              onPressed: () => dioParallDemo2(),
             ),
             TextButton(
               child: Text('Dio 拦截'),
