@@ -16,6 +16,7 @@ class Item extends Meta {
   int account;
 
   Item(name, price, this.account) : super(name, price);
+  // Item(super.name, super.price, this.account);
 
   //重载了+运算符，合并商品为套餐商品
   Item operator +(Item item) =>
