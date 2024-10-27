@@ -30,6 +30,7 @@ class JikeAnimation extends StatelessWidget {
       length: 4,
       child: Scaffold(
         body: TabBarView(
+          physics: const NeverScrollableScrollPhysics(), // 禁用滑动
           children: [
             NormalAnimateWidget(),
             BuilderAnimateWidget(),
